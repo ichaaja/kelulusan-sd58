@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pengumuman Kelulusan SDN 58 Lubuk Buaya</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #a8e063, #56ab2f);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+    .container {
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 600px;
+    }
+    input[type="text"] {
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      width: 80%;
+      margin-top: 10px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #fff;
+      color: #333;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .hidden {
+      display: none;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 8px;
+      border: 1px solid #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Pengumuman Kelulusan SD Negeri 58 Lubuk Buaya</h1>
+    <p>Tahun Ajaran 2024 / 2025</p>
+    <p><strong>Sambutan Kepala Sekolah:</strong> <br> Ibu RESNI NOVIA, S.Pd</p>
+    <div>
+      <input type="text" id="nisnInput" placeholder="Masukkan NISN atau ketik 'ADMIN'" />
+      <button onclick="cekKelulusan()">Cek Kelulusan</button>
+      <p id="pesan" class="hidden"></p>
+      <div id="hasil" class="hidden"></div>
+    </div>
+  </div>
+
+  <script>
+    const dataSiswa = [
+      { nama: "Abdurrahman Rizky Ramadhan", nisn: "0125778643", status: "LULUS" },
+      { nama: "Abizarr Al Ghifari", nisn: "3133602509", status: "LULUS" },
+      { nama: "Ahmad Sidiq", nisn: "3126381320", status: "LULUS" },
+      { nama: "Zheevano Axl Deef", nisn: "0133874685", status: "LULUS" }
+      // Tambahkan data lengkap lainnya di sini sesuai kebutuhan
+    ];
+
+    function cekKelulusan() {
+      const nisn = document.getElementById("nisnInput").value.trim();
+      const hasil = document.getElementById("hasil");
+      const pesan = document.getElementById("pesan");
+      hasil.innerHTML = "";
+      hasil.classList.add("hidden");
+      pesan.classList.add("hidden");
+
+      const waktuSekarang = new Date();
+      const tanggalBuka = new Date("2025-06-02T18:00:00+07:00"); // WIB
+
+      if (nisn.toLowerCase() === "admin") {
+        tampilkanSemua();
+        return;
+      }
+
+      if (waktuSekarang < tanggalBuka) {
+        pesan.innerText = "PENGUMUMAN KELULUSAN BELUM DIMULAI. HARAP CEK SESUAI WAKTU YANG TELAH DITENTUKAN.";
+        pesan.classList.remove("hidden");
+        return;
+      }
+
+      const siswa = dataSiswa.find(s => s.nisn === nisn);
+      if (siswa) {
+        hasil.innerHTML = `<p><strong>Nama:</strong> ${siswa.nama}</p>
+                           <p><strong>NISN:</strong> ${siswa.nisn}</p>
+                           <p><strong>Status:</strong> ${siswa.status}</p>`;
+        hasil.classList.remove("hidden");
+      } else {
+        pesan.innerText = "Data tidak ditemukan. Periksa kembali NISN Anda.";
+        pesan.classList.remove("hidden");
+      }
+    }
+
+    function tampilkanSemua() {
+      const hasil = document.getElementById("hasil");
+      let html = `<table><tr><th>Nama</th><th>NISN</th><th>Status</th></tr>`;
+      dataSiswa.forEach(siswa => {
+        html += `<tr><td>${siswa.nama}</td><td>${siswa.nisn}</td><td>${siswa.status}</td></tr>`;
+      });
+      html += `</table>`;
+      hasil.innerHTML = html;
+      hasil.classList.remove("hidden");
+    }
+  </script>
+</body>
+</html>
