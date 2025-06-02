@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kelulusan SDN 58 Lubuk Buaya</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: linear-gradient(to bottom right, #a8e063, #56ab2f);
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+    .hidden { display: none; }
+    #container { max-width: 600px; margin: auto; background: #ffffff20; padding: 20px; border-radius: 15px; }
+    input, button {
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    button { background-color: #ffffffaa; cursor: pointer; }
+    .result { background: #ffffff30; padding: 15px; border-radius: 10px; margin-top: 15px; }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="welcomePage">
+      <h1>Pengumuman Kelulusan SD Negeri 58 Lubuk Buaya<br>Tahun Ajaran 2024 / 2025</h1>
+      <p><strong>Sambutan Kepala Sekolah:</strong><br>RESNI NOVIA, S.Pd</p>
+      <button onclick="goToCheckPage()">Menu Kelulusan</button>
+    </div>
+
+    <div id="checkPage" class="hidden">
+      <h2>Cek Kelulusan</h2>
+      <input type="text" id="nisnInput" placeholder="Masukkan NISN...">
+      <button onclick="checkGraduation()">Cek</button>
+      <div id="result" class="result hidden"></div>
+    </div>
+  </div>
+
+  <script>
+    const data = [
+      { nama: "Abdurrahman Rizky Ramadhan", nisn: "0125778643", status: "LULUS" },
+      { nama: "Abizarr Al Ghifari", nisn: "3133602509", status: "LULUS" },
+      { nama: "Ahmad Sidiq", nisn: "3126381320", status: "LULUS" },
+      { nama: "Akesya Madeva Gusri", nisn: "3128481504", status: "LULUS" },
+      { nama: "Al Farizi", nisn: "0123248178", status: "LULUS" },
+      { nama: "Alhafiz Raychel bimaputra", nisn: "0122168779", status: "LULUS" },
+      { nama: "Alifa Khanza Aqila", nisn: "3121076386", status: "LULUS" },
+      { nama: "Aliyya Dewi Kartika", nisn: "0132106093", status: "LULUS" },
+      { nama: "Aqila Avrilia Jasmine", nisn: "3134590002", status: "LULUS" },
+      { nama: "Arkhan Hertio Pratama", nisn: "0134826988", status: "LULUS" },
+      { nama: "Azizi Aprilio Suherman", nisn: "0133287843", status: "LULUS" },
+      { nama: "ELSA RINDIANI PUTRI", nisn: "0111366812", status: "LULUS" },
+      { nama: "FAUZAN RIZKI ILAHI", nisn: "0123837108", status: "LULUS" },
+      { nama: "Febrianto", nisn: "0124020980", status: "LULUS" },
+      { nama: "Febrizyo Rama Maykha", nisn: "3139029980", status: "LULUS" },
+      { nama: "Galang Saputra", nisn: "0108136898", status: "LULUS" },
+      { nama: "Hamdy Syafitra", nisn: "0123426804", status: "LULUS" },
+      { nama: "Henrika Novellino Aldiansah", nisn: "0129009146", status: "LULUS" },
+      { nama: "Kevin Alvaro Lazuardi", nisn: "3136024664", status: "LULUS" },
+      { nama: "Kezia Kirana", nisn: "3124011603", status: "LULUS" },
+      { nama: "Lintang Argana Marulafau", nisn: "0126062321", status: "LULUS" },
+      { nama: "M. Nadhif Al Fikri", nisn: "0126174448", status: "LULUS" },
+      { nama: "Marsya Defani Putri", nisn: "0139214164", status: "LULUS" },
+      { nama: "Miftahurrahmi Herma", nisn: "3127174649", status: "LULUS" },
+      { nama: "Muhammad Akbar", nisn: "0132874690", status: "LULUS" },
+      { nama: "Muhammad Asyraf Khairul Azam", nisn: "3135276056", status: "LULUS" },
+      { nama: "Muhammad Azzam Satya Yudha", nisn: "0125214841", status: "LULUS" },
+      { nama: "Muhammad Farid Alghaly", nisn: "0117213840", status: "LULUS" },
+      { nama: "Nafisya Indah Syavitri", nisn: "0137665616", status: "LULUS" },
+      { nama: "Najwa Delvi Hasanah", nisn: "0136447663", status: "LULUS" },
+      { nama: "Nandia Trihap Sari", nisn: "0127056931", status: "LULUS" },
+      { nama: "Naufal Abyyu Kasri", nisn: "0133170953", status: "LULUS" },
+      { nama: "Nayra Aisyiyah Sumantry", nisn: "3135576062", status: "LULUS" },
+      { nama: "Noval Al Fikri", nisn: "3126770705", status: "LULUS" },
+      { nama: "Qaira Jesha Oktaviani", nisn: "3126474625", status: "LULUS" },
+      { nama: "Rafif Arsyad Rielika", nisn: "0138875549", status: "LULUS" },
+      { nama: "Raihan Nafis Marulafau", nisn: "0116626449", status: "LULUS" },
+      { nama: "Rechya Yosifia", nisn: "0129054996", status: "LULUS" },
+      { nama: "Reyo Rahmadani", nisn: "0121172859", status: "LULUS" },
+      { nama: "Safira Hanandya Putri", nisn: "0128996166", status: "LULUS" },
+      { nama: "Sahira Wendika Kirana", nisn: "0122703919", status: "LULUS" },
+      { nama: "SALSA AQILA AZZAHRA", nisn: "3132727889", status: "LULUS" },
+      { nama: "Senia Umul Qhayrani", nisn: "0119887639", status: "LULUS" },
+      { nama: "Siti Mayseva Az-Zahra", nisn: "0135333374", status: "LULUS" },
+      { nama: "Suci Ramadhani", nisn: "3127016011", status: "LULUS" },
+      { nama: "Tegar Hidayah", nisn: "3128254859", status: "LULUS" },
+      { nama: "Zahra Al Madinah", nisn: "3124362702", status: "LULUS" },
+      { nama: "Zahra Mutia", nisn: "0125480682", status: "LULUS" },
+      { nama: "Zela Shanum Aqila Tane", nisn: "0137110783", status: "LULUS" },
+      { nama: "Zheevano Axl Deef", nisn: "0133874685", status: "LULUS" }
+    ];
+
+    const releaseTime = new Date('2025-06-02T18:00:00+07:00');
+
+    function goToCheckPage() {
+      document.getElementById('welcomePage').classList.add('hidden');
+      document.getElementById('checkPage').classList.remove('hidden');
+    }
+
+    function checkGraduation() {
+      const now = new Date();
+      const nisn = document.getElementById('nisnInput').value.trim();
+      const resultDiv = document.getElementById('result');
+      resultDiv.classList.remove('hidden');
+
+      if (now < releaseTime) {
+        resultDiv.innerHTML = '<strong>PENGUMUMAN KELULUSAN BELUM DIMULAI</strong><br>HARAP DI CEK SESUAI WAKTU YANG TELAH DITENTUKAN';
+        return;
+      }
+
+      if (nisn.toLowerCase() === 'admin') {
+        resultDiv.innerHTML = '<h3>Data Seluruh Siswa:</h3>' + data.map(d => `${d.nama} (${d.nisn}) - ${d.status}`).join('<br>');
+        return;
+      }
+
+      const found = data.find(d => d.nisn === nisn);
+
+      if (found) {
+        resultDiv.innerHTML = `<strong>Nama:</strong> ${found.nama}<br><strong>NISN:</strong> ${found.nisn}<br><strong>Status:</strong> ${found.status}`;
+      } else {
+        resultDiv.innerHTML = 'Data tidak ditemukan. Periksa kembali NISN Anda.';
+      }
+    }
+  </script>
+</body>
+</html>
